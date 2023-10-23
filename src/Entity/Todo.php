@@ -29,6 +29,10 @@ class Todo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $note = null;
 
+    #[ORM\ManyToOne(inversedBy: 'todos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $userId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +94,18 @@ class Todo
     public function setNote(?string $note): static
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(?User $userId): static
+    {
+        $this->userId = $userId;
 
         return $this;
     }
